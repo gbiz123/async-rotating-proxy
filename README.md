@@ -1,6 +1,9 @@
 # pyppeteer-page-proxy
 Implement page-by-page proxy switching for pyppeteer.
 
+## Concept
+This program works by sending pyppeteer get requests through a proxy-switching API on your local machine.
+
 ## Purpose
 The article referenced below sums it up pretty well:
 "The chrome browser does not support fain-grained proxy configuration out of the box. Therefore, the following use cases are not possible when using puppeteer in combination with Google Chrome:
