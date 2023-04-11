@@ -11,4 +11,4 @@ The article referenced below sums it up pretty well:
 This is a bit annoying, because restarting the entire browser is an expensive operation in terms of computational resources. The chrome restart takes up to two seconds (depending on the system). We ideally want to switch proxies whenever the need arises without restarting the entire chrome process. This is a common requirement when scraping websites in scale."
 
 ## Reference
-Reimplementation of the nodejs code in https://incolumitas.com/2020/12/20/dynamically-changing-puppeteer-proxies/
+https://incolumitas.com/2020/12/20/dynamically-changing-puppeteer-proxies/
