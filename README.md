@@ -1,4 +1,4 @@
-# python-proxy-api
+# rotating-proxy-api
 Run an API on your local machine that reroutes traffic through rotating proxies.
 This is very useful for web scraping, as it allows you to switch proxies on every request with automated browsing.
 Particularly, when using puppeteer/pyppeteer, it is desirable to use a different proxy for every page.
