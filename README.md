@@ -2,7 +2,7 @@
 Run an API on your local machine that reroutes traffic through rotating proxies.
 
 - Useful with pyppeteer and selenium
-- Built on FastAPI and aiohttp for 
+- Built on FastAPI and aiohttp
 - Switch proxies on every request
 
 ## Installation
