@@ -8,7 +8,7 @@ setup(
     author_email = "g.bizup@gmail.com",
     packages=find_packages("rotating_proxy_api"),
     pacakge_dir={'': 'proxy_api'},
-    url="https://github.com/gbiz123/python-proxy-api",
+    url="https://github.com/gbiz123/rotating-proxy-api",
     keywords=["proxy", "rotating proxy", "pyppeteer proxy", "selenium proxy", "scraping"],
     install_requires=[
         "aiohttp==3.8.4",
