@@ -1,8 +1,30 @@
-# pyppeteer-page-proxy
-Implement page-by-page proxy switching for pyppeteer.
+# proxy-api
+Run an API on your local machine that reroutes traffic through rotating proxies.
+This is very useful for web scraping, as it allows you to switch proxies on every request with automated browsing.
+Particularly, when using puppeteer/pyppeteer, it is desirable to use a different proxy for every page.
+This package allows you to do just that.
 
-## Concept
-This program works by sending pyppeteer get requests through a proxy-switching API on your local machine.
+## Usage
+Usage is simple. Just start the API, format the URL, and send requests.
+'''
+# Instantiating ProxyAPI class launches the API on localhost
+proxy_api = ProxyAPI([proxy1:port, proxy2:port, proxy3:port],
+                  proxy_username='my_auth_cred',
+                  proxy_password='my_auth_cred',
+                  port=9001)
+
+# Encode and format the URL to get
+# This prepends the localhost address and encodes the URL
+url = 'http://checkip.dyndns.org/' 
+formatted_url = proxy_api.format_url(url)
+
+# Visit the formatted URL using preferred method
+# I use pyppeteer in this example
+browser = await pyppeteer.launch()
+page = await browser.newPage()
+await page.goto(formatted_url)
+'''
+
 
 ## Purpose
 The article referenced below sums it up pretty well:
