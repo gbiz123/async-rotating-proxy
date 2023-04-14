@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
-Name: rotating-proxy-api
+Name: async-rotating-proxy
 Version: 0.1
-Home-page: https://github.com/gbiz123/rotating-proxy-api
+Home-page: https://github.com/gbiz123/async-rotating-proxy
 Author: Gregory Bizup
 Author-email: g.bizup@gmail.com
 License: MIT
