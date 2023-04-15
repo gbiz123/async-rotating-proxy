@@ -1,9 +1,0 @@
-LICENSE.txt
-README.md
-setup.cfg
-setup.py
-rotating_proxy_api.egg-info/PKG-INFO
-rotating_proxy_api.egg-info/SOURCES.txt
-rotating_proxy_api.egg-info/dependency_links.txt
-rotating_proxy_api.egg-info/requires.txt
-rotating_proxy_api.egg-info/top_level.txt

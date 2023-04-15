@@ -1,9 +1,0 @@
-Metadata-Version: 2.1
-Name: async-rotating-proxy
-Version: 0.1
-Home-page: https://github.com/gbiz123/async-rotating-proxy
-Author: Gregory Bizup
-Author-email: g.bizup@gmail.com
-License: MIT
-Keywords: proxy,rotating proxy,pyppeteer proxy,selenium proxy,scraping
-License-File: LICENSE.txt
