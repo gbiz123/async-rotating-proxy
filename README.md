@@ -1,7 +1,8 @@
 # async-rotating-proxy
 Run an API on your local machine that reroutes traffic through rotating proxies.
 
-- Used for page-by-page dynamic proxy switching for pyppeteer and selenium
+- Excellent for scaling your web scraping
+- Designed for page-by-page dynamic proxy switching with pyppeteer
 
 ## Installation
 `pip install async_rotating_proxy`
