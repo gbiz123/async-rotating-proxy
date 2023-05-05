@@ -9,7 +9,7 @@ Run an API on your local machine that reroutes traffic through rotating proxies.
 
 ## Usage
 Usage is simple. Just start the API, format the URL, and send requests.
-```
+```py
 # Instantiating ProxyAPI class launches the API on localhost
 proxy_api = ProxyAPI([proxy1:port, proxy2:port, proxy3:port],
                       proxy_username='my_auth_cred',
