@@ -1,13 +1,15 @@
 from fastapi import FastAPI
+from fastapi.requests import Request
 from fastapi.responses import HTMLResponse
 import uvicorn
+
+from fake_headers import Headers
 
 import aiohttp
 from multiprocessing import Process
 
 import urllib.parse
 import random
-import threading
 import os
 
 
@@ -15,7 +17,8 @@ def app(proxies: list[str],
         proxy_username: str | None = None, 
         proxy_password: str | None = None,
         proxy_scheme: str = "http",
-        headers: dict = {"User-Agent": "Chrome"}):
+        fake_headers: bool = True
+        ):
     """Create a FastAPI instance which routes GET requests through proxies.
 
     Args:
@@ -23,7 +26,7 @@ def app(proxies: list[str],
         username (str | None): Username for authentication if any
         password: (str | None): Password for authenticaiton if any
         schemes: (tuple[str]): URI schemes for proxies (http, https, socks5)
-        headers (dict): HTTP Headers to attach to requests
+        fake_headers (bool): Generate fake headers for requests
 
     Returns:
         FastAPI: The proxy-redirect server
@@ -34,7 +37,7 @@ def app(proxies: list[str],
     app.pid = os.getpid()
 
     @app.get("/")
-    async def forward_proxy(url: str):
+    async def forward_proxy(request: Request, url: str):
         """Forward a request through a proxy and return the response
 
         Args:
@@ -57,6 +60,8 @@ def app(proxies: list[str],
 
         # Get the page and return HTML response
         async with aiohttp.ClientSession() as session:
+            headers = Headers(headers=True).generate() if fake_headers else {}
+
             async with session.get(url, proxy=proxy, headers=headers) as response:
                 html = await response.content.read()
                 return HTMLResponse(html.decode())
@@ -100,7 +105,6 @@ class ProxyAPI():
     def __enter__(self):
         self._process = Process(target=self._start_server)
         self._process.start()
-        os.system("lsof -i :8000")
         return self
         
     

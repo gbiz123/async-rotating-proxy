@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "async_rotating_proxy"
-version = "0.0.1"
+version = "0.0.3"
 authors = [
     { name="Greg Bizup", email="g.bizup@gmail.com" }
 ]
