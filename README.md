@@ -8,7 +8,7 @@ Run an API on your local machine that reroutes traffic through rotating proxies.
 `pip install async_rotating_proxy`
 
 ## Usage
-```
+```py
 proxies = [
   ip:port,
   ip:port,
