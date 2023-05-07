@@ -1,32 +1,26 @@
 # async-rotating-proxy
 Run an API on your local machine that reroutes traffic through rotating proxies.
 
-- Useful with pyppeteer and selenium
-- Built on FastAPI and aiohttp
-- Switch proxies on every request
+- Excellent for scaling your web scraping
+- Designed for page-by-page dynamic proxy switching with pyppeteer
 
 ## Installation
 `pip install async_rotating_proxy`
 
 ## Usage
-Usage is simple. Just start the API, format the URL, and send requests.
-```
-# Instantiating ProxyAPI class launches the API on localhost
-proxy_api = ProxyAPI([proxy1:port, proxy2:port, proxy3:port],
-                      proxy_username='my_auth_cred',
-                      proxy_password='my_auth_cred',
-                      port=9001)
+```py
+proxies = [
+  ip:port,
+  ip:port,
+  ip:port
+]
 
-# Encode and format the URL to get
-# This prepends the localhost address and encodes the URL
-url = 'http://checkip.dyndns.org/' 
-formatted_url = proxy_api.format_url(url)
+with ProxyAPI(proxies) as api:
+  url = api.format_url("http://url-to-scrape.com")
 
-# Visit the formatted URL using preferred method
-# I use pyppeteer in this example
-browser = await pyppeteer.launch()
-page = await browser.newPage()
-await page.goto(formatted_url)
+  browser = await pyppeteer.launch()
+  page = await browser.newPage()
+  await page.goto(url)
 ```
 
 
