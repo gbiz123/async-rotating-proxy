@@ -3,10 +3,12 @@ from fastapi.responses import HTMLResponse
 import uvicorn
 
 import aiohttp
+from multiprocessing import Process
 
 import urllib.parse
 import random
 import threading
+import os
 
 
 def app(proxies: list[str],
@@ -28,6 +30,8 @@ def app(proxies: list[str],
     """
 
     app = FastAPI()
+
+    app.pid = os.getpid()
 
     @app.get("/")
     async def forward_proxy(url: str):
@@ -64,22 +68,9 @@ class ProxyAPI():
     """Start an API on localhost to redirect traffic through proxies
 
     Usage:
-        # Create the ProxyAPI
-        # Instantiating this class launches the server
-        proxy_api = ProxyAPI([proxy1:port, proxy2:port, proxy3:port],
-                              proxy_username='my_auth_cred',
-                              proxy_password='my_auth_cred',
-                              port=9001)
-
-        # Encode and format the URL to get
-        url = 'http://checkip.dyndns.org/' 
-        formatted_url = proxy_api.format_url(url)
-
-        # Visit the formatted URL using preferred method
-        # I use pyppeteer in this example
-        browser = await pyppeteer.launch()
-        page = await browser.newPage()
-        await page.goto(formatted_url)
+        with ProxyAPI([proxy_list]) as proxy_api:
+            url = proxy_api.format_url("your_url")
+            do scraping stuff with your url now
         
 
     Constructor Args:
@@ -89,6 +80,8 @@ class ProxyAPI():
         port (int): The port on localhost where the proxy API is running
         proxy_scheme (http): The scheme of the proxy server
     """
+    api_pid: int
+
     def __init__(
             self,
             proxies: list[str], 
@@ -103,23 +96,25 @@ class ProxyAPI():
         self.port = port
         self.proxy_scheme = proxy_scheme
 
-        self.start_server()
+
+    def __enter__(self):
+        self._process = Process(target=self._start_server)
+        self._process.start()
+        return self
+        
+    
+    def __exit__(self, exc_type, value, traceback):
+        self._process.terminate()
 
 
-    def start_server(self):
+    def _start_server(self):
         """Start a FastAPI daemon for routing requests through proxies."""
         api = app(self.proxies, 
                   proxy_username=self.proxy_username,
                   proxy_password=self.proxy_password,
                   proxy_scheme=self.proxy_scheme)
 
-        thread = threading.Thread(target=uvicorn.run,
-                                  args=[api],
-                                  kwargs={"port": self.port},
-                                  name="uvicorn_proxy_server",
-                                  daemon=True)
-
-        thread.start()
+        uvicorn.run(api, port=self.port)
 
 
     def format_url(self, url: str):
