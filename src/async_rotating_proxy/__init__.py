@@ -84,6 +84,7 @@ class ProxyAPI():
         proxy_password (str | None): Password for proxy authentication if applicable
         port (int): The port on localhost where the proxy API is running
         proxy_scheme (http): The scheme of the proxy server
+        fake_headers (bool): Set fake headers on each request
     """
     api_pid: int
 
@@ -93,13 +94,15 @@ class ProxyAPI():
             proxy_username: str | None = None,
             proxy_password: str | None = None,
             port: int = 8000,
-            proxy_scheme: str = "http"
+            proxy_scheme: str = "http",
+            fake_headers: bool = True
         ):
         self.proxies = proxies
         self.proxy_username = proxy_username
         self.proxy_password = proxy_password
         self.port = port
         self.proxy_scheme = proxy_scheme
+        self.fake_headers = fake_headers
 
 
     def __enter__(self):
@@ -117,7 +120,8 @@ class ProxyAPI():
         api = app(self.proxies, 
                   proxy_username=self.proxy_username,
                   proxy_password=self.proxy_password,
-                  proxy_scheme=self.proxy_scheme)
+                  proxy_scheme=self.proxy_scheme,
+                  fake_headers=self.fake_headers)
 
         uvicorn.run(api, port=self.port)
 
