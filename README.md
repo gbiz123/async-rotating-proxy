@@ -9,6 +9,9 @@ Run an API on your local machine that reroutes traffic through rotating proxies.
 
 ## Usage
 ```py
+from async_rotating_proxy import ProxyAPI
+import pyppeteer
+
 proxies = [
   ip:port,
   ip:port,
@@ -16,7 +19,7 @@ proxies = [
 ]
 
 with ProxyAPI(proxies) as api:
-  url = api.format_url("http://url-to-scrape.com")
+  url = api.format_url("http://checkip.dyndns.org")
 
   browser = await pyppeteer.launch()
   page = await browser.newPage()
