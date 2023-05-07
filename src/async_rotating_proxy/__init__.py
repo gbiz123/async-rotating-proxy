@@ -7,7 +7,6 @@ from multiprocessing import Process
 
 import urllib.parse
 import random
-import threading
 import os
 
 
