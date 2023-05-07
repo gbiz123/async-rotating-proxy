@@ -100,6 +100,7 @@ class ProxyAPI():
     def __enter__(self):
         self._process = Process(target=self._start_server)
         self._process.start()
+        os.system("lsof -i :8000")
         return self
         
     
