@@ -28,6 +28,7 @@ with ProxyAPI(
     proxy_username=proxy_username, 
     proxy_password=proxy_password
   ) as api:
+  
   url = api.format_url("http://checkip.dyndns.org")
 
   async def main():
