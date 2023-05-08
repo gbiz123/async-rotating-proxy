@@ -62,6 +62,8 @@ def app(proxies: list[str],
         async with aiohttp.ClientSession() as session:
             headers = Headers(headers=True).generate() if fake_headers else {}
 
+            headers["Accept-Encoding"] = "*" # Because aiohttp does not support Brotli
+
             async with session.get(url, proxy=proxy, headers=headers) as response:
                 html = await response.content.read()
                 return HTMLResponse(html.decode())

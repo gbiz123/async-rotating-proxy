@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "async_rotating_proxy"
-version = "0.0.3"
+version = "0.0.5"
 authors = [
     { name="Greg Bizup", email="g.bizup@gmail.com" }
 ]
@@ -28,6 +28,7 @@ dependencies = [
     "fastapi >= 0.95.1",
     "pyppeteer >= 1.0.2",
     "uvicorn >= 0.21.1",
+    "fake_headers >= 1.0.2"
 ]
 
 [project.urls]
