@@ -11,6 +11,7 @@ Run an API on your local machine that reroutes traffic through rotating proxies.
 ```py
 from async_rotating_proxy import ProxyAPI
 import pyppeteer
+import asyncio
 
 proxies = [
   ip:port,
@@ -18,12 +19,23 @@ proxies = [
   ip:port
 ]
 
-with ProxyAPI(proxies) as api:
+# Authentication if needed
+proxy_username = "username"
+proxy_password = "password"
+
+with ProxyAPI(
+    proxies, 
+    proxy_username=proxy_username, 
+    proxy_password=proxy_password
+  ) as api:
   url = api.format_url("http://checkip.dyndns.org")
 
-  browser = await pyppeteer.launch()
-  page = await browser.newPage()
-  await page.goto(url)
+  async def main():
+    browser = await pyppeteer.launch()
+    page = await browser.newPage()
+    await page.goto(url)
+  
+  asyncio.run(main)
 ```
 
 
